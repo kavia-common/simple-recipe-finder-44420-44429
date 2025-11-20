@@ -1,0 +1,103 @@
+<div class="recipe-detail-page">
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="container">
+      <button (click)="goBack()" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Recipes
+      </button>
+    </div>
+  </nav>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Loading recipe...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !isLoading" class="error-container">
+    <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+    </svg>
+    <p class="error-text">{{ error }}</p>
+    <button (click)="goBack()" class="error-button">Return to Home</button>
+  </div>
+
+  <!-- Recipe Content -->
+  <main *ngIf="recipe && !isLoading" class="recipe-content">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="recipe-hero">
+        <div class="recipe-hero-image">
+          <img [src]="recipe.imageUrl" [alt]="recipe.title" />
+        </div>
+        <div class="recipe-hero-content">
+          <h1 class="recipe-title">{{ recipe.title }}</h1>
+          <p class="recipe-description">{{ recipe.description }}</p>
+          
+          <div class="recipe-tags">
+            <span class="recipe-tag" *ngFor="let tag of recipe.tags">{{ tag }}</span>
+          </div>
+
+          <div class="recipe-meta">
+            <div class="meta-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <div class="meta-label">Prep Time</div>
+                <div class="meta-value">{{ recipe.prepTime }} min</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+              </svg>
+              <div>
+                <div class="meta-label">Cook Time</div>
+                <div class="meta-value">{{ recipe.cookTime }} min</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <div>
+                <div class="meta-label">Servings</div>
+                <div class="meta-value">{{ recipe.servings }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recipe Details -->
+      <div class="recipe-details">
+        <div class="ingredients-section">
+          <h2 class="section-title">Ingredients</h2>
+          <ul class="ingredients-list">
+            <li *ngFor="let ingredient of recipe.ingredients" class="ingredient-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              {{ ingredient }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="instructions-section">
+          <h2 class="section-title">Instructions</h2>
+          <ol class="instructions-list">
+            <li *ngFor="let instruction of recipe.instructions; let i = index" class="instruction-item">
+              <div class="instruction-number">{{ i + 1 }}</div>
+              <div class="instruction-text">{{ instruction }}</div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

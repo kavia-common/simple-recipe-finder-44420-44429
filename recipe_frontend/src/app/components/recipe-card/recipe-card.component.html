@@ -1,0 +1,18 @@
+<div class="recipe-card" [routerLink]="['/recipe', recipe.id]">
+  <div class="recipe-image-container">
+    <img [src]="recipe.imageUrl" [alt]="recipe.title" class="recipe-image" />
+    <div class="recipe-time-badge">
+      <svg class="time-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      {{ recipe.prepTime + recipe.cookTime }} min
+    </div>
+  </div>
+  <div class="recipe-content">
+    <h3 class="recipe-title">{{ recipe.title }}</h3>
+    <p class="recipe-description">{{ recipe.description }}</p>
+    <div class="recipe-tags">
+      <span class="recipe-tag" *ngFor="let tag of recipe.tags">{{ tag }}</span>
+    </div>
+  </div>
+</div>
